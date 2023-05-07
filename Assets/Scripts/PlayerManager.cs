@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour
     // Health Variables
     public int maxHealth;
     public int currentHealth;
+    private int enemyDamage;
+    //private bool isHardMode;
 
     // Unused Variables
     //private float groundHeight;
@@ -48,6 +50,16 @@ public class PlayerManager : MonoBehaviour
         maxHealth = 10;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
+        //isHardMode = DifficultyManager.hard;
+        if(DifficultyManager.hard)
+        {
+            enemyDamage = 3;
+        }
+        else
+        {
+            enemyDamage = 1;
+        }
 
         //groundHeight = 0.5f;
         //fallSpeed = 0.02f;
@@ -178,6 +190,12 @@ public class PlayerManager : MonoBehaviour
                 Debug.Log("Gathering all orbs");
                 orbsCollected = 5;
             }
+
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.V))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+
         }
 
         newRotation = Quaternion.Euler(90, 0, zRotation);
@@ -223,7 +241,7 @@ public class PlayerManager : MonoBehaviour
 
         if (collision.gameObject.tag == "Bullet1")
         {
-            TakeDamage(3);
+            TakeDamage(enemyDamage);
             Destroy(collision.gameObject);
         }
 

@@ -26,6 +26,11 @@ public class GunManager : MonoBehaviour
     {
         //fireRate = 2f;
         //fireRateDelta = 0;
+        if(!DifficultyManager.hard)
+        {
+            fireRate = fireRate * 2f;
+            fireRateDelta = fireRateDelta * 2f;
+        }
     }
 
     public void Update()
